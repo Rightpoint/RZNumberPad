@@ -68,7 +68,7 @@ static NSUInteger const kRZNumberPadCols    = 3;
     frame.size = [[self class] defaultSize];
     
     self = [super initWithFrame:frame];
-    if ( (self ) ) {
+    if ( self ) {
         [self commonInit];
         [self configureView];
     }
