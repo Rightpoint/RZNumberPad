@@ -41,8 +41,7 @@ typedef NS_OPTIONS(NSUInteger, RZNumberPadEvents) {
 };
 
 IB_DESIGNABLE
-@interface RZNumberPad : UIView
-{
+@interface RZNumberPad : UIView {
 @protected
     __weak UIControl *_backButton;
     __weak UIControl *_doneButton;
@@ -68,7 +67,7 @@ IB_DESIGNABLE
 + (CGSize)defaultSize;
 
 /**
- *  The size of each button in the number pad. Default is 44x44.
+ *  The size in points of each button in the number pad. Default is 44x44.
  */
 + (CGSize)buttonSize;
 

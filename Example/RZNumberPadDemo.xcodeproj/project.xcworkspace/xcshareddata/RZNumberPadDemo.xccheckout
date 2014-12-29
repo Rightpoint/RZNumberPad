@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5AF855AF-C06D-41A8-9ACD-5CB5CF9AE5D1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RZNumberPadDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>32D11765F09060D0AABACF733789320BBD6AA22F</key>
+		<string>github.com:jvisenti/RZNumberPad.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/RZNumberPadDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>32D11765F09060D0AABACF733789320BBD6AA22F</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:jvisenti/RZNumberPad.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>32D11765F09060D0AABACF733789320BBD6AA22F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>32D11765F09060D0AABACF733789320BBD6AA22F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RZNumberPad</string>
+		</dict>
+	</array>
+</dict>
+</plist>

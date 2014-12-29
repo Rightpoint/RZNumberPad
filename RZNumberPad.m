@@ -51,7 +51,10 @@ static NSUInteger const kRZNumberPadCols    = 3;
 
 @property (strong, nonatomic) NSMutableDictionary *eventTargets;
 
-@property (strong, nonatomic) NSMutableArray *linkedTextFields;
+// for setting linked text fields via IB
+@property (copy, nonatomic) IBOutletCollection(UITextField) NSArray *outputTextFields;
+
+@property (strong, nonatomic) NSMutableOrderedSet *linkedTextFields;
 @property (weak, nonatomic) UITextField *activeTextField;
 
 @end
@@ -97,6 +100,11 @@ static NSUInteger const kRZNumberPadCols    = 3;
     self.bounds = (CGRect){.size = [[self class] defaultSize]};
     
     [self configureView];
+    
+    if ( self.outputTextFields != nil ) {
+        [self linkToTextFields:self.outputTextFields];
+        self.outputTextFields = nil;
+    }
 }
 
 #pragma mark - public methods
@@ -104,17 +112,14 @@ static NSUInteger const kRZNumberPadCols    = 3;
 + (CGSize)defaultSize
 {
     // NOTE: The number pad cannot be resized. This size is used on all devices.
-    static CGSize defaultSize;
+    CGSize defaultSize;
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        RZNumberPadDimensions dimensons = [self dimensions];
-        CGSize buttonSize = [self buttonSize];
-        CGPoint buttonSpacing = [self buttonSpacing];
-        
-        defaultSize.width = dimensons.width * (buttonSize.width + buttonSpacing.x) - buttonSpacing.x;
-        defaultSize.height = dimensons.height * (buttonSize.height + buttonSpacing.y) - buttonSpacing.y;
-    });
+    RZNumberPadDimensions dimensons = [self dimensions];
+    CGSize buttonSize = [self buttonSize];
+    CGPoint buttonSpacing = [self buttonSpacing];
+    
+    defaultSize.width = dimensons.width * (buttonSize.width + buttonSpacing.x) - buttonSpacing.x;
+    defaultSize.height = dimensons.height * (buttonSize.height + buttonSpacing.y) - buttonSpacing.y;
     
     return defaultSize;
 }
@@ -177,7 +182,7 @@ static NSUInteger const kRZNumberPadCols    = 3;
         numLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         numLabel.textAlignment = NSTextAlignmentCenter;
         numLabel.adjustsFontSizeToFitWidth = YES;
-        numLabel.text = [NSString stringWithFormat:@"%@", number];
+        numLabel.text = [number stringValue];
         
         [button addSubview:numLabel];
     }
@@ -291,10 +296,10 @@ static NSUInteger const kRZNumberPadCols    = 3;
     return _eventTargets;
 }
 
-- (NSMutableArray *)linkedTextFields
+- (NSMutableOrderedSet *)linkedTextFields
 {
     if ( _linkedTextFields == nil ) {
-        _linkedTextFields = [NSMutableArray array];
+        _linkedTextFields = [NSMutableOrderedSet orderedSet];
     }
     return _linkedTextFields;
 }
@@ -351,8 +356,8 @@ static NSUInteger const kRZNumberPadCols    = 3;
     [self addSubview:backButton];
     self.backButton = backButton;
     
-    self.backButton.hidden = self.isShowingBackButton;
-    self.doneButton.hidden = self.isShowingDoneButton;
+    self.backButton.hidden = !self.isShowingBackButton;
+    self.doneButton.hidden = !self.isShowingDoneButton;
 }
 
 - (void)numberButtonPressed:(UIControl *)sender
@@ -360,7 +365,7 @@ static NSUInteger const kRZNumberPadCols    = 3;
     NSUInteger buttonIndex = [self.numberButtons indexOfObject:sender];
     
     if ( self.activeTextField != nil ) {
-        [self replaceRange:[self textFieldSelectedRange:self.activeTextField] withString:[NSString stringWithFormat:@"%@", @(buttonIndex)]];
+        [self replaceRange:[self textFieldSelectedRange:self.activeTextField] withString:[@(buttonIndex) stringValue]];
     }
     
     if ( buttonIndex < [self.numberButtons count] ) {
