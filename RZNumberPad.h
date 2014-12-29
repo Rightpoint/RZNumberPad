@@ -94,7 +94,8 @@ IB_DESIGNABLE
 
 /**
  *  Called when the number pad needs to configure one of its button views. You should not call this method directly.
- *  Subclasses should override this method to perform custom configuration. The default implementation adds a UILabel to the view.
+ *  Subclasses should override this method to perform custom configuration. The default implementation sets the title of the button
+ *  if it is a UIButton subclass, and adds a UILabel to the view otherwise.
  *
  *  @param button The button to configure.
  *  @param number The number the button represents.
@@ -116,6 +117,19 @@ IB_DESIGNABLE
  *  @param button The back button to configure.
  */
 - (void)configureBackButton:(UIView *)button;
+
+/**
+ *  Called internally to determine what numerical value each button represents. The default implementation just returns the index,
+ *  but for the last button returns 0 (so that the zero button is at the bottom of the numberpad).
+ *
+ *  @param button The button representing some value.
+ *  @param index  The index of the button. Starting with the top left button, indexes increase from 0.
+ 
+ *  @note This method is not called for the done and back buttons.
+ *
+ *  @return The numerical value represented by the button.
+ */
+- (NSNumber *)numberForButton:(UIView *)button atIndex:(NSUInteger)index;
 
 /**
  *  Links the input of the number pad to the given text field. While linked, the number pad effectively functions as a keyboard for the text field. 
@@ -150,5 +164,10 @@ IB_DESIGNABLE
  *  @param numberPadEvents The events to remove target/actions for.
  */
 - (void)removeTarget:(id)target action:(SEL)action forEvents:(RZNumberPadEvents)numberPadEvents;
+
+/**
+ *  Re-configures all buttons. Useful for subclasses whose button values/appearances may change.
+ */
+- (void)reloadButtons;
 
 @end

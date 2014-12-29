@@ -7,9 +7,12 @@
 //
 
 @import UIKit;
+#import "RZMultipleNumpad.h"
 
-@interface RZViewController : UIViewController
+@interface RZViewController : UIViewController <UITextFieldDelegate>
 
+@property (copy, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
+@property (weak, nonatomic) IBOutlet  RZMultipleNumpad *multiplePad;
 
 @end
 

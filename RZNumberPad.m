@@ -51,11 +51,11 @@ static NSUInteger const kRZNumberPadCols    = 3;
 
 @property (strong, nonatomic) NSMutableDictionary *eventTargets;
 
-// for setting linked text fields via IB
-@property (copy, nonatomic) IBOutletCollection(UITextField) NSArray *outputTextFields;
-
 @property (strong, nonatomic) NSMutableOrderedSet *linkedTextFields;
 @property (weak, nonatomic) UITextField *activeTextField;
+
+// for setting linked text fields via IB
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *outputTextFields;
 
 @end
 
@@ -178,13 +178,21 @@ static NSUInteger const kRZNumberPadCols    = 3;
 - (void)configureButton:(UIView *)button forNumber:(NSNumber *)number
 {
     if ( number != nil ) {
-        UILabel *numLabel = [[UILabel alloc] initWithFrame:button.bounds];
-        numLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        numLabel.textAlignment = NSTextAlignmentCenter;
-        numLabel.adjustsFontSizeToFitWidth = YES;
-        numLabel.text = [number stringValue];
+        NSString *numString = [number stringValue];
         
-        [button addSubview:numLabel];
+        if ( [button isKindOfClass:[UIButton class]] ) {
+            [(UIButton *)button setTitle:numString forState:UIControlStateNormal];
+            [(UIButton *)button setTitle:numString forState:UIControlStateHighlighted];
+        }
+        else {
+            UILabel *numLabel = [[UILabel alloc] initWithFrame:button.bounds];
+            numLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            numLabel.textAlignment = NSTextAlignmentCenter;
+            numLabel.adjustsFontSizeToFitWidth = YES;
+            numLabel.text = numString;
+            
+            [button addSubview:numLabel];
+        }
     }
 }
 
@@ -196,6 +204,11 @@ static NSUInteger const kRZNumberPadCols    = 3;
 - (void)configureBackButton:(UIView *)backButton
 {
     // subclass override
+}
+
+- (NSNumber *)numberForButton:(UIView *)button atIndex:(NSUInteger)index
+{
+    return @((index + 1) % self.numberButtons.count);
 }
 
 - (void)linkToTextField:(UITextField *)textField
@@ -278,6 +291,17 @@ static NSUInteger const kRZNumberPadCols    = 3;
     }
 }
 
+- (void)reloadButtons
+{
+    [self.numberButtons enumerateObjectsUsingBlock:^(UIControl *btn, NSUInteger idx, BOOL *stop) {
+        NSNumber *num = [self numberForButton:btn atIndex:idx];
+        [self configureButton:btn forNumber:num];
+    }];
+    
+    [self configureDoneButton:self.doneButton];
+    [self configureBackButton:self.backButton];
+}
+
 #pragma mark - private methods
 
 - (NSMutableArray *)numberButtons
@@ -312,6 +336,9 @@ static NSUInteger const kRZNumberPadCols    = 3;
     
     Class buttonClass = [[self class] buttonClass];
     
+    // handle the last row (with special buttons) separately
+    CGFloat lastRowY = (dimensions.height - 1) * (buttonSize.height + buttonSpacing.y);
+    
     for ( NSUInteger row = 0; row < dimensions.height - 1; row++ ) {
         for ( NSUInteger col = 0; col < dimensions.width; col++ ) {
             CGPoint buttonOrigin = CGPointMake(col * (buttonSize.width + buttonSpacing.x), row * (buttonSize.height + buttonSpacing.y));
@@ -319,7 +346,6 @@ static NSUInteger const kRZNumberPadCols    = 3;
             CGRect viewFrame = (CGRect){.origin = buttonOrigin, .size = buttonSize};
             UIControl *numButton = [[buttonClass alloc] initWithFrame:viewFrame];
             
-            [self configureButton:numButton forNumber:@(1 + row * dimensions.width + col)];
             [numButton addTarget:self action:@selector(numberButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:numButton];
@@ -327,30 +353,28 @@ static NSUInteger const kRZNumberPadCols    = 3;
         }
     }
     
-    // handle the last row (with special buttons) separately
-    CGFloat lastRowY = (dimensions.height - 1) * (buttonSize.height + buttonSpacing.y);
+    // take care of the last row of number buttons
+    for ( NSUInteger col = 0; col + 2 < dimensions.width; col++ ) {
+        CGPoint buttonOrigin = CGPointMake((col + 1) * (buttonSize.width + buttonSpacing.x), lastRowY);
+        
+        CGRect viewFrame = (CGRect){.origin = buttonOrigin, .size = buttonSize};
+        UIControl *numButton = [[buttonClass alloc] initWithFrame:viewFrame];
+        
+        [numButton addTarget:self action:@selector(numberButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:numButton];
+        [self.numberButtons addObject:numButton];
+    }
     
-    UIControl *doneButton = [[buttonClass alloc] initWithFrame:CGRectMake(0.0f, lastRowY, buttonSize.width, buttonSize.height)];
-    
-    [self configureDoneButton:doneButton];
+    UIControl *doneButton = [[buttonClass alloc] initWithFrame:(CGRect){.origin.y = lastRowY, .size = buttonSize}];
     [doneButton addTarget:self action:@selector(doneButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:doneButton];
     self.doneButton = doneButton;
     
-    CGRect zeroFrame = CGRectMake(0.5f * (self.bounds.size.width - buttonSize.width), lastRowY, buttonSize.width, buttonSize.height);
-    UIControl *zeroButton = [[buttonClass alloc] initWithFrame:zeroFrame];
-    
-    [self configureButton:zeroButton forNumber:@(0)];
-    [zeroButton addTarget:self action:@selector(numberButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self addSubview:zeroButton];
-    [self.numberButtons insertObject:zeroButton atIndex:0];
-    
     CGRect backFrame = CGRectMake(CGRectGetWidth(self.bounds) - buttonSize.width, lastRowY, buttonSize.width, buttonSize.height);
     UIControl *backButton = [[buttonClass alloc] initWithFrame:backFrame];
     
-    [self configureBackButton:backButton];
     [backButton addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:backButton];
@@ -358,18 +382,21 @@ static NSUInteger const kRZNumberPadCols    = 3;
     
     self.backButton.hidden = !self.isShowingBackButton;
     self.doneButton.hidden = !self.isShowingDoneButton;
+    
+    [self reloadButtons];
 }
 
 - (void)numberButtonPressed:(UIControl *)sender
 {
     NSUInteger buttonIndex = [self.numberButtons indexOfObject:sender];
+    NSNumber *number = [self numberForButton:sender atIndex:buttonIndex];
     
     if ( self.activeTextField != nil ) {
-        [self replaceRange:[self textFieldSelectedRange:self.activeTextField] withString:[@(buttonIndex) stringValue]];
+        [self replaceRange:[self textFieldSelectedRange:self.activeTextField] withString:[number stringValue]];
     }
     
     if ( buttonIndex < [self.numberButtons count] ) {
-        [self sendActionsForEvents:RZNumberPadEventKeypress object:@(buttonIndex)];
+        [self sendActionsForEvents:RZNumberPadEventKeypress object:number];
     }
 }
 
