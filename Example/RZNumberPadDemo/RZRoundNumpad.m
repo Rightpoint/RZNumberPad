@@ -12,12 +12,12 @@
 
 + (CGSize)buttonSize
 {
-    return CGSizeMake(30.0f, 30.0f);
+    return CGSizeMake(35.0f, 35.0f);
 }
 
 + (CGPoint)buttonSpacing
 {
-    return CGPointMake(10.0f, 10.0f);
+    return CGPointMake(5.0f, 5.0f);
 }
 
 + (RZNumberPadDimensions)dimensions
@@ -40,8 +40,6 @@
 {
     button.backgroundColor = [UIColor redColor];
     button.layer.cornerRadius = 0.5f * MIN(CGRectGetWidth(button.bounds), CGRectGetHeight(button.bounds));
-    
-    [(UIButton *)button setTitle:@"<" forState:UIControlStateNormal];
 }
 
 - (void)configureDoneButton:(UIView *)button

@@ -49,6 +49,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D41DD2B61A51CEA900F92607 /* Numberpad Examples */ = {
+			isa = PBXGroup;
+			children = (
+				D41DD2AD1A519AD000F92607 /* RZRoundNumpad.h */,
+				D41DD2AE1A519AD000F92607 /* RZRoundNumpad.m */,
+				D41DD2B01A51AD5E00F92607 /* RZSquareNumpad.h */,
+				D41DD2B11A51AD5E00F92607 /* RZSquareNumpad.m */,
+				D41DD2B31A51B2B300F92607 /* RZMultipleNumpad.h */,
+				D41DD2B41A51B2B300F92607 /* RZMultipleNumpad.m */,
+			);
+			name = "Numberpad Examples";
+			sourceTree = "<group>";
+		};
 		D4ADEBD51A3B8CB200F71709 = {
 			isa = PBXGroup;
 			children = (
@@ -69,16 +82,11 @@
 		D4ADEBE01A3B8CB200F71709 /* RZNumberPadDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D41DD2B61A51CEA900F92607 /* Numberpad Examples */,
 				D4ADEBE51A3B8CB200F71709 /* RZAppDelegate.h */,
 				D4ADEBE61A3B8CB200F71709 /* RZAppDelegate.m */,
 				D4ADEBE81A3B8CB200F71709 /* RZViewController.h */,
 				D4ADEBE91A3B8CB200F71709 /* RZViewController.m */,
-				D41DD2AD1A519AD000F92607 /* RZRoundNumpad.h */,
-				D41DD2AE1A519AD000F92607 /* RZRoundNumpad.m */,
-				D41DD2B01A51AD5E00F92607 /* RZSquareNumpad.h */,
-				D41DD2B11A51AD5E00F92607 /* RZSquareNumpad.m */,
-				D41DD2B31A51B2B300F92607 /* RZMultipleNumpad.h */,
-				D41DD2B41A51B2B300F92607 /* RZMultipleNumpad.m */,
 				D41DD2A71A5199E300F92607 /* LaunchScreen.xib */,
 				D41DD2A91A5199E300F92607 /* Main.storyboard */,
 				D4ADEBE11A3B8CB200F71709 /* Supporting Files */,
