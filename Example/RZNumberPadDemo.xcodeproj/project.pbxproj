@@ -12,10 +12,10 @@
 		D41DD2AF1A519AD000F92607 /* RZRoundNumpad.m in Sources */ = {isa = PBXBuildFile; fileRef = D41DD2AE1A519AD000F92607 /* RZRoundNumpad.m */; };
 		D41DD2B21A51AD5E00F92607 /* RZSquareNumpad.m in Sources */ = {isa = PBXBuildFile; fileRef = D41DD2B11A51AD5E00F92607 /* RZSquareNumpad.m */; };
 		D41DD2B51A51B2B300F92607 /* RZMultipleNumpad.m in Sources */ = {isa = PBXBuildFile; fileRef = D41DD2B41A51B2B300F92607 /* RZMultipleNumpad.m */; };
+		D422156E1A546F2C00158E51 /* RZNumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = D422156D1A546F2C00158E51 /* RZNumberPad.m */; };
 		D4ADEBE41A3B8CB200F71709 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBE31A3B8CB200F71709 /* main.m */; };
 		D4ADEBE71A3B8CB200F71709 /* RZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBE61A3B8CB200F71709 /* RZAppDelegate.m */; };
 		D4ADEBEA1A3B8CB200F71709 /* RZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBE91A3B8CB200F71709 /* RZViewController.m */; };
-		D4ADEC0A1A3B8D5100F71709 /* RZNumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC091A3B8D5100F71709 /* RZNumberPad.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +27,8 @@
 		D41DD2B11A51AD5E00F92607 /* RZSquareNumpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquareNumpad.m; sourceTree = "<group>"; };
 		D41DD2B31A51B2B300F92607 /* RZMultipleNumpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZMultipleNumpad.h; sourceTree = "<group>"; };
 		D41DD2B41A51B2B300F92607 /* RZMultipleNumpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZMultipleNumpad.m; sourceTree = "<group>"; };
+		D422156C1A546F2C00158E51 /* RZNumberPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZNumberPad.h; path = ../RZNumberPad/RZNumberPad.h; sourceTree = "<group>"; };
+		D422156D1A546F2C00158E51 /* RZNumberPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZNumberPad.m; path = ../RZNumberPad/RZNumberPad.m; sourceTree = "<group>"; };
 		D4ADEBDE1A3B8CB200F71709 /* RZNumberPadDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZNumberPadDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4ADEBE21A3B8CB200F71709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4ADEBE31A3B8CB200F71709 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -34,8 +36,6 @@
 		D4ADEBE61A3B8CB200F71709 /* RZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAppDelegate.m; sourceTree = "<group>"; };
 		D4ADEBE81A3B8CB200F71709 /* RZViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZViewController.h; sourceTree = "<group>"; };
 		D4ADEBE91A3B8CB200F71709 /* RZViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZViewController.m; sourceTree = "<group>"; };
-		D4ADEC081A3B8D5100F71709 /* RZNumberPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZNumberPad.h; path = ../RZNumberPad.h; sourceTree = "<group>"; };
-		D4ADEC091A3B8D5100F71709 /* RZNumberPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZNumberPad.m; path = ../RZNumberPad.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +106,8 @@
 		D4ADEC071A3B8D4900F71709 /* RZNumberPad */ = {
 			isa = PBXGroup;
 			children = (
-				D4ADEC081A3B8D5100F71709 /* RZNumberPad.h */,
-				D4ADEC091A3B8D5100F71709 /* RZNumberPad.m */,
+				D422156C1A546F2C00158E51 /* RZNumberPad.h */,
+				D422156D1A546F2C00158E51 /* RZNumberPad.m */,
 			);
 			name = RZNumberPad;
 			sourceTree = "<group>";
@@ -185,9 +185,9 @@
 				D41DD2B21A51AD5E00F92607 /* RZSquareNumpad.m in Sources */,
 				D41DD2AF1A519AD000F92607 /* RZRoundNumpad.m in Sources */,
 				D4ADEBE71A3B8CB200F71709 /* RZAppDelegate.m in Sources */,
-				D4ADEC0A1A3B8D5100F71709 /* RZNumberPad.m in Sources */,
 				D4ADEBE41A3B8CB200F71709 /* main.m in Sources */,
 				D41DD2B51A51B2B300F92607 /* RZMultipleNumpad.m in Sources */,
+				D422156E1A546F2C00158E51 /* RZNumberPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
