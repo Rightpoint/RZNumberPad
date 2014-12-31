@@ -66,6 +66,11 @@ static NSUInteger const kRZNumberPadCols    = 3;
 
 #pragma mark - lifecycle
 
++ (void)initialize
+{
+    NSAssert([[self buttonClass] isSubclassOfClass:[UIControl class]], @"%@ button class must be a subclass of UIControl.", NSStringFromClass([RZNumberPad class]));
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     frame.size = [[self class] defaultSize];
