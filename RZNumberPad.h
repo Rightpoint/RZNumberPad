@@ -37,7 +37,7 @@ typedef NS_OPTIONS(NSUInteger, RZNumberPadEvents) {
     RZNumberPadEventKeypress    = 1 << 0,
     RZNumberPadEventBack        = 1 << 1,
     RZNumberPadEventDone        = 1 << 2,
-    RZNumberPadEventAllEvents   = 0x7
+    RZNumberPadEventAllEvents   = (RZNumberPadEventKeypress | RZNumberPadEventBack | RZNumberPadEventDone)
 };
 
 IB_DESIGNABLE
@@ -89,7 +89,9 @@ IB_DESIGNABLE
  */
 + (Class)buttonClass;
 
-/** @note Size property of frame is ignored. Defeault size is used instead. */
+/**
+ *  @note Size property of frame is ignored. Default size is used instead.
+ */
 - (instancetype)initWithFrame:(CGRect)frame;
 
 /**

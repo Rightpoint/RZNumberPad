@@ -89,8 +89,8 @@ static NSUInteger const kRZNumberPadCols    = 3;
 
 - (void)commonInit
 {
-    self.showingBackButton = YES;
-    self.showingDoneButton = YES;
+    _showingBackButton = YES;
+    _showingDoneButton = YES;
 }
 
 - (void)awakeFromNib
