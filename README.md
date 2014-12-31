@@ -4,7 +4,40 @@ RZNumberPad
 Next time design requires yet another custom number pad, don't cringe. Instead rejoice at the task, made incredibly simple by `RZNumberPad`. 
 
 ## Usage
-`RZNumberPad` provides a base class that contains logic and performs tasks that are inherent to every number pad. Instead of reinventing the wheel with each new design requirement, simply create a subclass of `RZNumberPad` and override the appropriate methods to specify the style. 
+`RZNumberPad` provides a base class that contains logic and performs tasks that are inherent to every number pad. Instead of reinventing the wheel with each new design requirement, simply create a subclass of `RZNumberPad` and override the appropriate methods to specify the style. Key methods to override for customization:
+
+``` objc
+// The size in points of each button in the number pad.
++ (CGSize)buttonSize;
+
+// The amount of space between each button. 
+// The X value is horizontal spacing, and Y value is vertical spacing.
++ (CGPoint)buttonSpacing;
+
+ // The dimensions of the number pad. 
+ // Width is the be number of columns, and height is the be number of rows.
++ (RZNumberPadDimensions)dimensions;
+
+// The class used to create the button views. 
+// The returned class must be a subclass of UIControl.
++ (Class)buttonClass;
+
+// Called when the number pad needs to configure one of its button views.
+// The default implementation sets the title of the button if it is a UIButton subclass, 
+// and adds a UILabel to the view otherwise.
+- (void)configureButton:(UIView *)button forNumber:(NSNumber *)number;
+
+//  Called when the number pad needs to configure its done button. 
+- (void)configureDoneButton:(UIView *)button;
+
+// Called when the number pad needs to configure its back button.
+- (void)configureBackButton:(UIView *)button;
+
+// Called internally to determine what numerical value each button represents. 
+// The default implementation just returns the index, but for the last button returns 0 
+// (so that the zero button is at the bottom of the numberpad).
+- (NSNumber *)numberForButton:(UIView *)button atIndex:(NSUInteger)index;
+```
 
 **No xibs needed**
 
