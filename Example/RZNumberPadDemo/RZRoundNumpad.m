@@ -29,23 +29,27 @@
 {
     [super configureButton:button forNumber:number];
 
-    button.backgroundColor = [UIColor lightGrayColor];
+    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
     button.layer.cornerRadius = 0.5f * MIN(CGRectGetWidth(button.bounds), CGRectGetHeight(button.bounds));
+    button.layer.borderWidth = 1.0f;
     
-    [(UIButton *)button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [(UIButton *)button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+    ((UIButton *)button).titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [(UIButton *)button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [(UIButton *)button setTitleColor:[UIColor greenColor] forState:UIControlStateHighlighted];
 }
 
 - (void)configureBackButton:(UIView *)button
 {
-    button.backgroundColor = [UIColor redColor];
     button.layer.cornerRadius = 0.5f * MIN(CGRectGetWidth(button.bounds), CGRectGetHeight(button.bounds));
+
+    button.backgroundColor = [UIColor redColor];
 }
 
 - (void)configureDoneButton:(UIView *)button
 {
-    button.backgroundColor = [UIColor blueColor];
     button.layer.cornerRadius = 0.5f * MIN(CGRectGetWidth(button.bounds), CGRectGetHeight(button.bounds));
+
+    button.backgroundColor = [UIColor blueColor];
 }
 
 - (NSNumber *)numberForButton:(UIView *)button atIndex:(NSUInteger)index
